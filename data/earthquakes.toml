@@ -1,0 +1,14 @@
+[[quake]]
+mag = 4.7
+place = "South Shetland Islands"
+detail = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us6000c6ep.geojson"
+
+[[quake]]
+mag = 4.9
+place = "117 km SE of Waingapu, Indonesia"
+detail = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us6000c6cn.geojson"
+
+[[quake]]
+mag = 4.5
+place = "240 km W of Tual, Indonesia"
+detail = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us6000c6cd.geojson"

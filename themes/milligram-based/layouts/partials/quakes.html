@@ -1,0 +1,24 @@
+{{ $urlPre := "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/" }}
+{{ $urlSuf := ".geojson" }}
+{{ $params := .Params.quakes }}
+{{ $quakes := getJSON $urlPre $params $urlSuf }}
+
+<h2>{{ $quakes.metadata.title }}</h2>
+<h3>Count: {{ $quakes.metadata.count }}</h3>
+<table>
+    <tr>
+        <th>Time</th>
+        <th>Magnitude</th>
+        <th>Place</th>
+        <th>URL</th>
+    </tr>
+    {{ range $quakes.features }}
+    {{ $time := dateFormat "02.01.2006 15:04:05 MST" (time (div (int .properties.time) 1000)) }}
+    <tr>
+        <td>{{ $time }}</td>
+        <td>{{ .properties.mag }}</td>
+        <td>{{ .properties.place }}</td>
+        <td><a href="{{ .properties.url }}" target="_blank">{{ .properties.url }}</a></td>
+    </tr>
+    {{ end }}
+</table>

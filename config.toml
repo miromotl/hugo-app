@@ -1,0 +1,6 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Playing around with HUGO"
+theme = "milligram-based"
+[params]
+    updated = "2020-10-09"
