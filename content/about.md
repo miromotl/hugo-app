@@ -1,7 +1,6 @@
 ---
 title: "About"
 date: 2020-10-07T16:24:09+02:00
-draft: true
 type: "page"
 menu: 
     main:
