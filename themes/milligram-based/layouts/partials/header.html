@@ -1,4 +1,4 @@
-{{ $url := .URL }}
+{{ $url := .RelPermalink }}
 <div class="navbar">
 {{ range .Site.Menus.main.ByWeight }}
     {{ if eq .Name "About"}}

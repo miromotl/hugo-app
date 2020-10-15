@@ -1,0 +1,21 @@
+{{ $url := "http://api.open-notify.org/astros.json" }}
+{{ $astros := getJSON $url }}
+
+{{ if eq $astros.message "success"}}
+    <h2>There are &nbsp;{{ $astros.number }}&nbsp; people right now in space</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Craft</th>
+        </tr>
+        {{ range $astros.people }}
+            <tr>
+                <td>{{ .name }}</td>
+                <td>{{ .craft }}</td>
+            </tr>
+        {{ end }}
+    </table>
+{{ else }}
+    <h2>{{ $astros.message }}</h2>
+{{ end }}

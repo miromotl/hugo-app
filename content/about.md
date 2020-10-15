@@ -8,6 +8,8 @@ menu:
         weight: -100
 ---
 
-Here it is all around Hugo.
+Here it is all about Hugo.
 
 **Hugo who?**
+
+The answer is **[here](https://gohugo.io)**.

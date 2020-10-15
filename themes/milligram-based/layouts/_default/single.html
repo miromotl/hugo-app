@@ -3,6 +3,8 @@
     {{ .Content }}
 
     {{ if isset .Params "quakes" }}
-        {{- partial "quakes.html" . -}}
+        {{ partial "quakes.html" . }}
+    {{ else if isset .Params "astros" }}
+        {{ partial "astros.html" . }}
     {{ end }}
 {{ end }}
