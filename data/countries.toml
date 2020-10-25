@@ -1,0 +1,44 @@
+[[country]]
+name = "Switzerland"
+code = "CH"
+population = 8654622
+
+[[country]]
+name = "Germany"
+code = "DE"
+population = 83783942
+
+[[country]]
+name = "Austria"
+code = "AT"
+population = 9006398
+
+[[country]]
+name = "Italy"
+code = "IT"
+population = 60461826
+
+[[country]]
+name = "France"
+code = "FR"
+population = 65273511
+
+[[country]]
+name = "Spain"
+code = "ES"
+population = 46754778
+
+[[country]]
+name = "UK"
+code = "GB"
+population = 67886011
+
+[[country]]
+name = "USA"
+code = "US"
+population = 331002651
+
+[[country]]
+name = "Mexico"
+code = "MX"
+population = 128932753

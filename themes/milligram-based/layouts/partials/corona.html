@@ -1,0 +1,146 @@
+{{ $urlPre := "https://api.covid19api.com/" }}
+{{ $summaryPath := "summary" }}
+{{ $summary := getJSON $urlPre $summaryPath }}
+{{ $countriesData := $summary.Countries }}
+
+<div class="tab">
+    <button class="tablinks active" onclick="openTab(event, 'Global')">Global</button>
+    {{ range .Site.Data.countries.country }}
+        <button class="tablinks" onclick="openTab(event, '{{ .code }}')">{{ .name }}</button>
+    {{ end }}
+</div>
+
+<div id="Global" class="tabcontent" style="display: block;">
+    <table>
+        <tr>
+            <td>Total Confirmed</td>
+            <td><span id="totalConfirmed"></span></td>
+        </tr>
+        <tr>
+            <td>New Confirmed</td>
+            <td><span id="newConfirmed"></span></td>
+        </tr>
+        <tr>
+            <td>Total Recovered</td>
+            <td><span id="totalRecovered"></span></td>
+        </tr>
+        <tr>
+            <td>New Recovered</td>
+            <td><span id="newRecovered"></span></td>
+        </tr>
+        <tr>
+            <td>Total Deaths</td>
+            <td><span id="totalDeaths"></span></td>
+        </tr>
+        <tr>
+            <td>New Deaths</td>
+            <td><span id="newDeaths"></span></td>
+        </tr>
+    </table>
+</div>
+
+{{ range .Site.Data.countries.country }}
+<div id="{{ .code }}" class="tabcontent" style="display: none;">
+    <table>
+        <tr>
+            <td>Total Confirmed</td>
+            <td><span id="{{ .code }}TotalConfirmed"></span></td>
+            <td><span id="{{ .code }}TotalConfirmedRel"></span></td>
+        </tr>
+        <tr>
+            <td>New Confirmed</td>
+            <td><span id="{{ .code }}NewConfirmed"></span></td>
+            <td><span id="{{ .code }}NewConfirmedRel"></span></td>
+        </tr>
+        <tr>
+            <td>Total Recovered</td>
+            <td><span id="{{ .code }}TotalRecovered"></span></td>
+            <td><span id="{{ .code }}TotalRecoveredRel"></span></td>
+        </tr>
+        <tr>
+            <td>New Recovered</td>
+            <td><span id="{{ .code }}NewRecovered"></span></td>
+            <td><span id="{{ .code }}NewRecoveredRel"></span></td>
+        </tr>
+        <tr>
+            <td>Total Deaths</td>
+            <td><span id="{{ .code }}TotalDeaths"></span></td>
+            <td><span id="{{ .code }}TotalDeathsRel"></span></td>
+        </tr>
+        <tr>
+            <td>New Deaths</td>
+            <td><span id="{{ .code }}NewDeaths"></span></td>
+            <td><span id="{{ .code }}NewDeathsRel"></span></td>
+        </tr>
+    </table>
+</div>
+{{ end }}
+
+<script>
+    // Global
+    document.getElementById("totalConfirmed").innerText = 
+        {{ $summary.Global.TotalConfirmed }}.toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("newConfirmed").innerText = 
+        {{ $summary.Global.NewConfirmed }}.toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("totalRecovered").innerText = 
+        {{ $summary.Global.TotalRecovered }}.toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("newRecovered").innerText = 
+        {{ $summary.Global.NewRecovered }}.toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("totalDeaths").innerText = 
+        {{ $summary.Global.TotalDeaths }}.toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("newDeaths").innerText = 
+        {{ $summary.Global.NewDeaths }}.toLocaleString(undefined, {minimumFractionDigits: 0});
+    
+    // Countries
+    {{ range .Site.Data.countries.country }}
+    window[{{ .code }}] = {{ $countriesData }}.filter(c => {return c["CountryCode"] == "{{ .code }}";} )[0];
+
+    document.getElementById("{{ .code }}TotalConfirmed").innerText = 
+        window[{{ .code }}]["TotalConfirmed"].toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}TotalConfirmedRel").innerText = 
+        (window[{{ .code }}]["TotalConfirmed"]/{{ .population }}*100000).toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}NewConfirmed").innerText = 
+        window[{{ .code }}]["NewConfirmed"].toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}NewConfirmedRel").innerText = 
+        (window[{{ .code }}]["NewConfirmed"]/{{ .population }}*100000).toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}TotalRecovered").innerText = 
+        window[{{ .code }}]["TotalRecovered"].toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}TotalRecoveredRel").innerText = 
+        (window[{{ .code }}]["TotalRecovered"]/{{ .population }}*100000).toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}NewRecovered").innerText = 
+        window[{{ .code }}]["NewRecovered"].toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}NewRecoveredRel").innerText = 
+        (window[{{ .code }}]["NewRecovered"]/{{ .population }}*100000).toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}TotalDeaths").innerText = 
+        window[{{ .code }}]["TotalDeaths"].toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}TotalDeathsRel").innerText = 
+        (window[{{ .code }}]["TotalDeaths"]/{{ .population }}*100000).toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}NewDeaths").innerText = 
+        window[{{ .code }}]["NewDeaths"].toLocaleString(undefined, {minimumFractionDigits: 0});
+    document.getElementById("{{ .code }}NewDeathsRel").innerText = 
+        (window[{{ .code }}]["NewDeaths"]/{{ .population }}*100000).toLocaleString(undefined, {minimumFractionDigits: 0});
+    {{ end }}
+</script>
+
+<script>
+function openTab(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}    
+</script>

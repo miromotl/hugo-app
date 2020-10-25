@@ -6,5 +6,7 @@
         {{ partial "quakes.html" . }}
     {{ else if isset .Params "astros" }}
         {{ partial "astros.html" . }}
+    {{ else if isset .Params "corona" }}
+        {{ partial "corona.html" . }}
     {{ end }}
 {{ end }}
