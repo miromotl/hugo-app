@@ -2,7 +2,7 @@
 {{ $astros := getJSON $url }}
 
 {{ if eq $astros.message "success"}}
-    <h2>There are &nbsp;{{ $astros.number }}&nbsp; people right now in space</h2>
+    <h2>There are &nbsp;{{ $astros.number }}&nbsp; people in space right now</h2>
 
     <table>
         <tr>
